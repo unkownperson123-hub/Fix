@@ -1,18 +1,9 @@
-#
-# Copyright (C) 2021-2022 by TheAloneteam@Github, < https://github.com/TheAloneTeam >.
-#
-# This file is part of < https://github.com/TheAloneTeam/AloneMusic > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/TheAloneTeam/AloneMusic/blob/master/LICENSE >
-#
-# All rights reserved.
 
 import time
-
 import psutil
 
-from AloneMusic.misc import _boot_
-from AloneMusic.utils.formatters import get_readable_time
+from Oneforall.misc import _boot_
+from Oneforall.utils.formatters import get_readable_time
 
 
 async def bot_sys_stats():
@@ -20,5 +11,18 @@ async def bot_sys_stats():
     UP = f"{get_readable_time(bot_uptime)}"
     CPU = f"{psutil.cpu_percent(interval=0.5)}%"
     RAM = f"{psutil.virtual_memory().percent}%"
-    DISK = f"{psutil.disk_usage('/').percent}%"
+
+    try:
+        disk_percent = psutil.disk_usage("/tmp").percent
+    except Exception:
+        disk_percent = psutil.disk_usage(".").percent
+
+    DISK = f"{disk_percent}%"
+
     return UP, CPU, RAM, DISK
+
+
+async def bot_up_time():
+    bot_up_time = int(time.time() - _boot_)
+    BOT_UP = f"{get_readable_time(bot_up_time)}"
+    return BOT_UP
