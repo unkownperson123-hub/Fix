@@ -2,8 +2,8 @@
 import time
 import psutil
 
-from Oneforall.misc import _boot_
-from Oneforall.utils.formatters import get_readable_time
+from AloneMusic.misc import _boot_
+from AloneMusic.utils.formatters import get_readable_time
 
 
 async def bot_sys_stats():
